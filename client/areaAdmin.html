@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+        html, body { height: 100%; }
+        #wrap { height: auto !important; height: 100%; margin: 0 auto -60px; padding: 0 0 60px; }
+
+        .row { margin: 0; padding: 0 }/*fix bug bootstrap*/
+    </style>
+    <div id="wrap">
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </nav>
+        </div> 
+
+    </head>
+    <body>
+
+        <!--REFERENCIAR AQUI O OBJETO ARRAY CLIENTE QUE É RETORNO DE UMA ACAO QUE FAZ CONSULTA PELO USUARIO NA TABELA CLIENTE PELO ID DO CLIENTE PARA VISUALIZAR INFORMACOES RELACIONADAS COM O ID DA CASA-->
+
+        <form id="formulario" class="form-horizontal">
+            <fieldset>
+                <legend style="margin-left: 15px">Bem vindo Administrador X</legend> <!--Referenciar aqui para botar o nome dele com a saudação oFuncionario['nome']-->
+
+                <div class="row">
+
+                    <!-- Informações Relevantes -->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Adminstrador X</h3> 
+                                <!--Referenciar aqui para botar o nome dele com a numeracão da casa dele oFuncionario['nome']-->
+                            </div>
+                            <div class="panel-body">
+                                <p>  Existem X chamados em aberto. </p> <!-- Count das linhas com oChamado['status'] = 'aberto' -->
+                                <br>
+
+                                <p>  Existem X chamados pendentes. </p> <!-- Count das linhas com oChamado['status'] = 'pendente' -->
+                                <br>
+
+                                <p>  Existem X chamados fechados. </p> <!-- Count das linhas com oChamado['status'] = 'fechado' -->
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fim Informações Relevantes. -->
+
+
+                    <!-- Tabela de Informações. -->
+                    <div class="row col-lg-12 col-md-12">
+
+                        <table id="grid" class="table table-bordered table-hover" style="width: 100%;">
+                            <!-- Achar um jeito de preencher essas tabelas com pyhton.-->
+                            <thead>
+                                <tr bgColor="#eee">
+                                    <th class="col-sm-1">Cód.</th>
+                                    <th class="col-sm-4">Assunto</th> 
+                                    <th class="col-sm-2">Data de Criação</th>
+                                    <th class="col-sm-2">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody"></tbody>
+                        </table>                
+                    </div>
+                    <!-- Fim da Tabela de Informações. -->            
+                </div>
+            </fieldset>
+        </form>
+    </body>
+    </html>
