@@ -1,1 +1,3 @@
-db/PHIopolis.asta.lock
+**/*.lock
+**/*.bak
+
