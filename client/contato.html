@@ -7,223 +7,140 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.form.js"></script>
     <style>
-        html, body { height: 100%; }
-        #wrap { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -60px; padding: 0 0 60px; }
-        #footer { height: 60px; background-color: #f5f5f5; }
-        .container { width: auto; padding: 0 15px; }
-        .container .credit { margin: 20px 0; }
-        .row { margin: 0; padding: 0 }
-        .form-control-feedback{margin-right: 15px;}
-        .form-control { padding: 6px; }
+        html, body {
+            height: 100%;
+        }
 
-        form, label, span, .btn, ul.nav-tabs li a, .alert, table { font-size: 12px; }
+        #wrap {
+            min-height: 100%;
+            height: auto !important;
+            height: 100%;
+            margin: 0 auto -60px;
+            padding: 0 0 60px;
+        }
 
-        .form-control, 
-        .option, 
-        .item, 
+        #footer {
+            height: 60px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: auto;
+            padding: 0 15px;
+        }
+
+        .container .credit {
+            margin: 20px 0;
+        }
+
+        .row {
+            margin: 0;
+            padding: 0
+        }
+
+        .form-control-feedback {
+            margin-right: 15px;
+        }
+
+        .form-control {
+            padding: 6px;
+        }
+
+        form, label, span, .btn, ul.nav-tabs li a, .alert, table {
+            font-size: 12px;
+        }
+
+        .form-control,
+        .option,
+        .item,
         #formulario input > input:not([type="radio"]),
-        #formulario input > input:not([type="checkbox"]){ 
-            font-size: 11px; height: 28px; 
+        #formulario input > input:not([type="checkbox"]) {
+            font-size: 11px;
+            height: 28px;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-inverse" role="navigation" style="margin: 0;">
-        <div class="navbar-header">
-            <a class="navbar-brand">PHIOPOLIS</a>
-        </div>
-        <div class="navbar-header navbar-right" style="margin-right: 5px;">
-            <a class="navbar-brand" href="login.html">Sair</a>
-        </div>
-    </nav>
+<nav class="navbar navbar-inverse" role="navigation" style="margin: 0;">
+    <div class="navbar-header">
+        <a class="navbar-brand">PHIOPOLIS</a>
+    </div>
+    <div class="navbar-header navbar-right" style="margin-right: 5px;">
+        <a class="navbar-brand" href="login.html">Sair</a>
+    </div>
+</nav>
 
-    <br>
-    <br>
+<br>
+<br>
 
-    <div id="wrap">                       
-        <div class="container">
-            <div class="row">
-                <form id="formulario" onsubmit="" method="post" class="form-horizontal"> <!--Ação em py para inserir no banco. A Ação deve salvar os dados do cliente e retorna oCliente (pode ser usado como numero da conta) objeto em array, e apartir disso, redireciona para a area do cliente. -->
-                    <div class="col-md-12">
-                        <fieldset>
-                            <legend style="margin-left: 15px">Entre em contato com a gente. </legend>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-body">
+<div id="wrap">
+    <div class="container">
+        <div class="row">
+            <form id="formulario" onsubmit="" method="post" class="form-horizontal">
+                <!--Ação em py para inserir no banco. A Ação deve salvar os dados do cliente e retorna oCliente (pode ser usado como numero da conta) objeto em array, e apartir disso, redireciona para a area do cliente. -->
+                <div class="col-md-12">
+                    <fieldset>
+                        <legend style="margin-left: 15px">Entre em contato com a gente.</legend>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
 
-                                            <div class="row">
-                                                <div class="col-lg-4">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <label for="assunto" class="control-label"> Assunto </label>
-                                                            <input name="assunto" id="assunto" class="form-control" required="">
-                                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <label for="assunto" class="control-label"> Assunto </label>
+                                                        <input name="assunto" id="assunto" class="form-control"
+                                                               required="">
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div class="row">
-                                                <div class="col-lg-4">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <label for="mensagem" class="control-label"> Mensagem </label>
-                                                            <textarea name="mensagem" id="mensagem" class="form-control" placeholder="Insira a sua mensagem." cols="30" rows="10"
-                                                            ></textarea>
-                                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <label for="mensagem" class="control-label"> Mensagem </label>
+                                                        <textarea name="mensagem" id="mensagem" class="form-control"
+                                                                  placeholder="Insira a sua mensagem." cols="30"
+                                                                  rows="10"
+                                                        ></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="pull-right" style="margin-right: 15px; margin-bottom: 15px;">
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn btn-primary" id="bt-salvar">Enviar</button> 
-                                        <button href="index.html" type="button" class="btn btn-default" id="bt-fechar">Cancelar</button> <!--Ir para a página de login -->
-                                    </div>
+                            <div class="pull-right" style="margin-right: 15px; margin-bottom: 15px;">
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-primary" id="bt-salvar">Enviar</button>
+                                    <button href="index.html" type="button" class="btn btn-default" id="bt-fechar">
+                                        Cancelar
+                                    </button> <!--Ir para a página de login -->
                                 </div>
                             </div>
                         </div>
-                    </fieldset>
                 </div>
-            </form>
-            <br>
+                </fieldset>
         </div>
+        </form>
+        <br>
     </div>
+</div>
 </div>
 </body>
 <script>
- //CONSTRUINDO OS AJAX DA GALERA;
-     var oColums = null;
-     var oTable = null;
-     var rowData = [];
-     var Grid = {
-
-    /*load: function (params) {
-        oTable = $('#grid').dataTable({
-            lengthChange: false,
-            bFilter: false,
-            bSort: false,
-            bProcessing: true,
-            bServerSide: true,
-            sAjaxSource: params.url,
-            oLanguage: {sUrl: BASE_URL + "/js/datatables/datatables.portugues.txt"},
-            aoColumns: Grid.setColums(params),
-            fnServerData: function (sSource, aoData, fnCallback) {
-                Grid.ajaxExecute(sSource, aoData, fnCallback);
-            }
-        });
-
-        Grid.selectRow();
-    },
-
-    setColums: function (params) {
-        var aColunas = [];
-        $.each(params.oColums, function (i, coluna) {
-            aColunas.push('{data: "' + coluna + '"}');
-        });
-
-        var colunas = aColunas.join();
-        return eval("[" + colunas + "]");
-    },
-
-    ajaxExecute: function (sSource, aoData, fnCallback) {
-        $.each($('#form-pesquisa').serializeArray(), function (index, value) {
-            aoData.push({name: value.name, value: value.value});
-        });
-
-        $.ajax({
-            url: sSource,
-            data: aoData,
-            type: 'post',
-            dataType: 'json',
-            async: false,
-            success: function (json) {
-                if (json.erro) {
-                    $("#mensagem").html(json.msg).show().delay(5000).fadeOut("slow");
-                } else {
-                    fnCallback(json);
-                }
-            }
-        });
-    },
+    jQuery(function () {
 
 
-    reloadGrid: function () {
-        oTable.fnDraw();
-        Grid.desabilitaAcoes();
-    },
-
-
-    totalRegistros: function () {
-        return oTable.fnGetData().length;
-    },
-
-    */
-};
-
-
-    /*ajaxPost(url, data, callback) {
-        $.ajax({
-            url: url,
-            type: 'POST',
-            dataType: 'JSON',
-            data: data,
-            success: callback
-        });
-    }
-
-    ajaxGet(url, callback) {
-        $.ajax({
-            url: url,
-            type: 'GET',
-            dataType: 'JSON',
-            async: false,
-            success: callback
-        });
-    }
-
-    ajaxForm(callback) {
-        $("#formulario").ajaxSubmit({ //Função do jqueryforms
-            async: false,
-            success: callback
-        });
-    }
-
-    var urlBase = "phiopolis";
-
-    carregarGrid(){ //admin
-        var params = {
-            oColums: ["id", "assunto", "dt_criacao", "status"],
-            url: BASE_URL + "acao"
-        };
-        Grid.load(params);
-    }
-
-        carregarGrid(){ //cliente
-        var params = {
-            oColums: ["id", "assunto", "dt_criacao", "status"],
-            url: BASE_URL + "acao"
-        };
-        Grid.load(params);
-    }
-
-    salvar(){
-        Utils.ajaxForm((response) => {
-            console.log(response);
-            if (response.retorno === 'erro') {
-                alert(response.msg);
-            } else {
-                alert(response.msg);
-                window.location = urlBase + 'areaCliente' + response.id;
-            }
-        }
-        )
-    }
-*/
+    });
 
 </script>
 </html>

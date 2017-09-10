@@ -7,112 +7,155 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <style>
-        html, body { height: 100%; }
-        #wrap { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -60px; padding: 0 0 60px; }
-        #footer { height: 60px; background-color: #f5f5f5; }
-        .container { width: auto; padding: 0 15px; }
-        .container .credit { margin: 20px 0; }
-        .row { margin: 0; padding: 0 }
-        .form-control-feedback{margin-right: 15px;}
-        .form-control { padding: 6px; }
+        html, body {
+            height: 100%;
+        }
 
-        form, label, span, .btn, ul.nav-tabs li a, .alert, table { font-size: 12px; }
+        #wrap {
+            min-height: 100%;
+            height: auto !important;
+            height: 100%;
+            margin: 0 auto -60px;
+            padding: 0 0 60px;
+        }
 
-        .form-control, 
-        .option, 
-        .item, 
+        #footer {
+            height: 60px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: auto;
+            padding: 0 15px;
+        }
+
+        .container .credit {
+            margin: 20px 0;
+        }
+
+        .row {
+            margin: 0;
+            padding: 0
+        }
+
+        .form-control-feedback {
+            margin-right: 15px;
+        }
+
+        .form-control {
+            padding: 6px;
+        }
+
+        form, label, span, .btn, ul.nav-tabs li a, .alert, table {
+            font-size: 12px;
+        }
+
+        .form-control,
+        .option,
+        .item,
         #formulario input > input:not([type="radio"]),
-        #formulario input > input:not([type="checkbox"]){ 
-            font-size: 11px; height: 28px; 
+        #formulario input > input:not([type="checkbox"]) {
+            font-size: 11px;
+            height: 28px;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-inverse" role="navigation" style="margin: 0;">
-        <div class="navbar-header">
-            <a class="navbar-brand">PHIOPOLIS</a>
-        </div>
-        <div class="navbar-header navbar-right" style="margin-right: 5px;">
-            <a class="navbar-brand" href="cadastro.html">Sair</a>
-        </div>
-    </nav>
+<nav class="navbar navbar-inverse" role="navigation" style="margin: 0;">
+    <div class="navbar-header">
+        <a class="navbar-brand">PHIOPOLIS</a>
+    </div>
+    <div class="navbar-header navbar-right" style="margin-right: 5px;">
+        <a class="navbar-brand" href="cadastro.html">Sair</a>
+    </div>
+</nav>
 
-    <br>
-    <br>
+<br>
+<br>
 
-    <div id="wrap">                       
-        <div class="container">
-            <div class="row">
-                <form id="formulario" onsubmit="" method="post" class="form-horizontal"> <!--Ação em py para inserir no banco. A Ação deve salvar os dados do cliente e retorna oCliente (pode ser usado como numero da conta) objeto em array, e apartir disso, redireciona para a area do cliente. -->
-                    <div class="col-lg-12 col-md-12">
-                        <fieldset>
-                            <legend style="margin-left: 15px">Insira seus dados para cadastro</legend>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-body">
+<div id="wrap">
+    <div class="container">
+        <div class="row">
+            <form id="formulario" action="api.py" method="post" class="form-horizontal">
+                <!--Ação em py para inserir no banco. A Ação deve salvar os dados do cliente e retorna oCliente (pode ser usado como numero da conta) objeto em array, e apartir disso, redireciona para a area do cliente. -->
+                <div class="col-lg-12 col-md-12">
+                    <fieldset>
+                        <legend style="margin-left: 15px">Insira seus dados para cadastro</legend>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
 
-                                            <div class="row">
-                                                <div class="col-md-4 col-md-offset-1">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <label for="nome" class="control-label"> Nome </label>
-                                                            <input name="nome" id="nome" class="form-control" required="" placeholder="Insira o seu nome.">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4 col-md-offset-2">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <label for="identidade" class="control-label"> Identidade </label>
-                                                            <input name="identidade" id="identidade" class="form-control" placeholder="Insira a sua identidade (somente números)." size="30">
-                                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <label for="nome" class="control-label"> Nome </label>
+                                                        <input name="nome" id="nome" class="form-control" required=""
+                                                               placeholder="Insira o seu nome.">
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-md-4 col-md-offset-1">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <label for="telefone" class="control-label"> Telefone </label>
-                                                            <input name="telefone" id="telefone" class="form-control" placeholder="Insira os números de telefone.">
-                                                        </div>
+                                            <div class="col-md-4 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <label for="identidade" class="control-label">
+                                                            Identidade </label>
+                                                        <input name="identidade" id="identidade" class="form-control"
+                                                               placeholder="Insira a sua identidade (somente números)."
+                                                               size="30">
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
 
-                                                <div class="col-md-4 col-md-offset-2">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <label for="cpf" class="control-label"> CPF </label>
-                                                            <input name="cpf" id="cpf" class="form-control" placeholder="Insira o CPF.">
-                                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <label for="telefone" class="control-label"> Telefone </label>
+                                                        <input name="telefone" id="telefone" class="form-control"
+                                                               placeholder="Insira os números de telefone.">
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-md-4 col-md-offset-1">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <label for="endereco" class="control-label"> Endereço </label>
-                                                            <input name="endereco" id="endereco" class="form-control" placeholder="Insira o seu endereço.">
-                                                        </div>
+                                            <div class="col-md-4 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <label for="cpf" class="control-label"> CPF </label>
+                                                        <input name="cpf" id="cpf" class="form-control"
+                                                               placeholder="Insira o CPF.">
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
 
-                                                <div class="col-md-4 col-md-offset-2">
-                                                   <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <label for="endereco" class="control-label"> Endereço </label>
+                                                        <input name="endereco" id="endereco" class="form-control"
+                                                               placeholder="Insira o seu endereço.">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 col-md-offset-2">
+                                                <div class="form-group">
                                                     <div class="col-md-12">
                                                         <label for="email" class="
                                                         control-label"> E-mail </label>
-                                                        <input name="email" id="email" class="form-control" placeholder="Insira o seu E-mail.">
+                                                        <input name="email" id="email" class="form-control"
+                                                               placeholder="Insira o seu E-mail.">
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>    
+                                        </div>
                                         <br>
                                         <br>
                                         <div class="row">
@@ -120,7 +163,8 @@
                                                 <div class="form-group">
                                                     <div class="col-md-12">
                                                         <label for="usuario" class="control-label"> Usuário </label>
-                                                        <input name="usuario" id="usuario" class="form-control" placeholder="Insira um usuário para login.">
+                                                        <input name="usuario" id="usuario" class="form-control"
+                                                               placeholder="Insira um usuário para login.">
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,7 +173,9 @@
                                                 <div class="form-group">
                                                     <div class="col-md-12">
                                                         <label for="senha" class="control-label"> Senha </label>
-                                                        <input type="password" name="senha" id="senha" class="form-control" placeholder="Insira uma senha para login.">
+                                                        <input type="password" name="senha" id="senha"
+                                                               class="form-control"
+                                                               placeholder="Insira uma senha para login.">
                                                     </div>
                                                 </div>
                                             </div>
@@ -139,8 +185,10 @@
 
                                 <div class="pull-right" style="margin-right: 15px; margin-bottom: 15px;">
                                     <div class="btn-group">
-                                        <button type="submit" class="btn btn-primary" id="bt-salvar">Salvar</button> 
-                                        <button href="index.html" type="button" class="btn btn-default" id="bt-fechar">Cancelar</button> <!--Ir para a página de login -->
+                                        <button type="submit" class="btn btn-primary" id="bt-salvar">Salvar</button>
+                                        <button href="index.html" type="button" class="btn btn-default" id="bt-fechar">
+                                            Cancelar
+                                        </button> <!--Ir para a página de login -->
                                     </div>
                                 </div>
                             </div>
@@ -153,4 +201,21 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    jQuery(function () {
+
+
+        $("#bt-salvar").click(function () {
+            $("#formulario").ajaxSubmit({
+                async: false,
+                success: callback
+            });
+            console.log(callback);
+            window.location = "/client/phiopolis" + 'api.py' + callback.id;
+
+        });
+
+    });
+
+</script>
 </html>

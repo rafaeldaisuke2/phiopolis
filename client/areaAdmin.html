@@ -7,96 +7,199 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/datatables.min.js"></script>
     <style>
-        html, body { height: 100%; }
-        #wrap { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -60px; padding: 0 0 60px; }
-        #footer { height: 60px; background-color: #f5f5f5; }
-        .container { width: auto; padding: 0 15px; }
-        .container .credit { margin: 20px 0; }
-        .row { margin: 0; padding: 0 }
-        .form-control-feedback{margin-right: 15px;}
-        .form-control { padding: 6px; }
-
-        form, label, span, .btn, ul.nav-tabs li a, .alert, table { font-size: 12px; }
-
-        .form-control, 
-        .option, 
-        .item, 
-        #formulario input > input:not([type="radio"]),
-        #formulario input > input:not([type="checkbox"]){ 
-            font-size: 11px; height: 28px; 
+        html, body {
+            height: 100%;
         }
+
+        #wrap {
+            min-height: 100%;
+            height: auto !important;
+            height: 100%;
+            margin: 0 auto -60px;
+            padding: 0 0 60px;
+        }
+
+        .container {
+            width: auto;
+            padding: 0 15px;
+        }
+
+        .container .credit {
+            margin: 20px 0;
+        }
+
+        .row {
+            margin: 0;
+            padding: 0
+        }
+
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-inverse" role="navigation" style="margin: 0;">
-        <div class="navbar-header">
-            <a class="navbar-brand">PHIOPOLIS</a>
-        </div>
-        <div class="navbar-header navbar-right" style="margin-right: 5px;">
-            <a class="navbar-brand" href="index.html">Sair</a>
-        </div>
-    </nav>
-
-    <br>
-    <br>
-
-    <div id="wrap">                       
-        <div class="container">
-            <div class="row">
-                <form id="formulario" class="form-horizontal">
-                    <div class="col-lg-12 col-md-12">
-                        <fieldset>
-                            <legend style="margin-left: 15px">Bem vindo Administrador X</legend> <!--Referenciar aqui para botar o nome dele com a saudação oFuncionario['nome']-->
-
-                            <div class="row">
-
-                                <!-- Informações Relevantes -->
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Adminstrador X</h3> 
-                                            <!--Referenciar aqui para botar o nome dele com a numeracão da casa dele oFuncionario['nome']-->
-                                        </div>
-                                        <div class="panel-body">
-                                            <p>  Existem X chamados em aberto. </p> <!-- Count das linhas com oChamado['status'] = 'aberto' -->
-                                            <br>
-
-                                            <p>  Existem X chamados pendentes. </p> <!-- Count das linhas com oChamado['status'] = 'pendente' -->
-                                            <br>
-
-                                            <p>  Existem X chamados fechados. </p> <!-- Count das linhas com oChamado['status'] = 'fechado' -->
-                                            <br>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Fim Informações Relevantes. -->
-
-
-                                <!-- Tabela de Informações. -->
-                                <div class="row col-lg-12 col-md-12">
-
-                                    <table id="grid" class="table table-bordered table-hover" style="width: 100%;">
-                                        <!-- Achar um jeito de preencher essas tabelas com pyhton.-->
-                                        <thead>
-                                            <tr bgColor="#eee">
-                                                <th class="col-sm-1">Cód.</th>
-                                                <th class="col-sm-4">Assunto</th> 
-                                                <th class="col-sm-2">Data de Criação</th>
-                                                <th class="col-sm-2">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="tbody"></tbody>
-                                    </table>                
-                                </div>
-                                <!-- Fim da Tabela de Informações. -->            
-                            </div>
-                        </fieldset>
-                    </div>
-                </form>
-                <br>
-            </div>
-        </div>
+<nav class="navbar navbar-inverse" role="navigation" style="margin: 0;">
+    <div class="navbar-header">
+        <a class="navbar-brand">PHIOPOLIS</a>
     </div>
+    <div class="navbar-header navbar-right" style="margin-right: 5px;">
+        <a class="navbar-brand" href="index.html">Sair</a>
+    </div>
+</nav>
+
+<br>
+<br>
+
+<div id="wrap">
+    <div class="container">
+        <div class="col-lg-12 col-md-12">
+            <!--Referenciar aqui para botar o nome dele com a saudação oFuncionario['nome']-->
+            <legend style="margin-left: 15px">Bem vindo Administrador X</legend>
+            <!-- Informações Relevantes -->
+            <div class="col-lg-12 col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Adminstrador X</h3>
+                        <!--Referenciar aqui para botar o nome dele com a numeracão da casa dele oFuncionario['nome']-->
+                    </div>
+                    <div class="panel-body">
+                        <p> Existem <span id="abertas"></span> chamados em aberto. </p>
+                        <!-- Count das linhas com oChamado['status'] = 'aberto' -->
+                        <br>
+
+                        <p> Existem <span id="andamento"></span> chamados pendentes. </p>
+                        <!-- Count das linhas com oChamado['status'] = 'pendente' -->
+                        <br>
+
+                        <p> Existem <span id="fechada"></span> chamados fechados. </p>
+                        <!-- Count das linhas com oChamado['status'] = 'fechado' -->
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim Informações Relevantes. -->
+
+            <!-- Tabela de Informações. -->
+            <div class="row col-lg-12 col-md-12">
+                <table id="grid" class="table table-bordered table-hover" style="width: 100%;">
+                    <!-- Achar um jeito de preencher essas tabelas com pyhton.-->
+                    <thead>
+                    <tr bgColor="#eee">
+                        <th class="col-sm-1">Cód.</th>
+                        <th class="col-sm-2">Assunto</th>
+                        <th class="col-sm-4">Mensagem</th>
+                        <th class="col-sm-1">Data de Criação</th>
+                        <th class="col-sm-1">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody class="tbody"></tbody>
+                </table>
+            </div>
+            <!-- Fim da Tabela de Informações. -->
+        </div>
+        <br>
+    </div>
+</div>
 </body>
+
+<script type="text/javascript">
+    jQuery(function () {
+
+        //Ajax que pega do banco todas as mensagens da tabela mensagens.
+        $("#wrap").load(function () {
+            var abertas = 0;
+            var andamento = 0;
+            var fechadas = 0;
+
+            var params = {
+                oColums: ["id_usuario", "assunto", "mensagem", "data_criacao", "status"],
+                url: "client/phiopolis" + "api.py" //Ação URL.
+            };
+            load(params);
+
+
+        });
+
+        function load(params) {
+            var oColums = null;
+            var oTable = null;
+            var rowData = [];
+
+            /*$('#grid').dataTable({
+                ajax: function (data, callback, settings) {
+                    $.ajax({
+                        url: '/your/url',
+                        type: 'POST',
+                        data: data,
+                        success:function(data){
+                            callback(data);
+                            // Do whatever you want.
+                        }
+                    });
+                }
+            });*/
+
+            $('#grid').dataTable({
+                lengthChange: false,
+                bFilter: false,
+                bSort: false,
+                bProcessing: true,
+                bServerSide: true,
+                sAjaxSource: params.url, //url Ação do ajax.
+                oLanguage: {sUrl: "client/phiopolis" + "/js/datatables.portugues.txt"},
+                aoColumns: setColumns(params),
+                fnServerData: function (sSource, aoData, fnCallback) {
+                    ajaxExecute(sSource, aoData, fnCallback);
+                }
+
+            });
+        }
+
+        function setColumns(params) {
+            var aColunas = [];
+            $.each(params.oColums, function (i, coluna) {
+                aColunas.push('{data: "' + coluna + '"}');
+            });
+
+            var colunas = aColunas.join();
+            return eval("[" + colunas + "]");
+        }
+
+        function ajaxExecute(sSource, aoData, fnCallback) {
+
+            $.ajax({
+                url: sSource,
+                data: aoData,
+                type: 'post',
+                dataType: 'json',
+                async: false,
+                success: function (json) {
+                    if (json.erro) {
+                        alert("ERRO");
+                    } else {
+                        fnCallback(json);
+                    }
+                }
+            });
+
+            var tamanho = Object.keys(aoData[i]).length;
+
+            for (i = 0; i < tamanho; i++) {
+                if (aoData["status"] == "aberta") {
+                    abertas = abertas + 1;
+                } else if (aoData["status"] == "em andamento") {
+                    andamento = andamento + 1;
+                } else {
+                    fechada = fechada + 1;
+                }
+            }
+
+            $('#abertas').html(abertas.val());
+            $('#andamento').html(andamento.val());
+            $('#fechada').html(fechada.val());
+
+        }
+
+    });
+</script>
 </html>
