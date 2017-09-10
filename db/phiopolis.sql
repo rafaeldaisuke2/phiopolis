@@ -117,8 +117,8 @@ CREATE TABLE `mensagem` (
  `id_resposta` INT NOT NULL,
  `id_admin` INT NOT NULL,
  `assunto` CHAR(20) NOT NULL,
- `conteudo` CHAR(1000) NOT NULL,
- `resposta` CHAR(1000) NOT NULL,
+ `conteudo` TEXT(1000) NOT NULL,
+ `resposta` TEXT(1000) NOT NULL,
  `status` CHAR(20) NOT NULL,
  `data_criacao` DATE NOT NULL,
 
