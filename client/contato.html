@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Reclamações ou Sugestões</title>
+    <title>Contato</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -34,7 +34,7 @@
             <a class="navbar-brand">PHIOPOLIS</a>
         </div>
         <div class="navbar-header navbar-right" style="margin-right: 5px;">
-            <a class="navbar-brand" href="cadastro.html">Sair</a>
+            <a class="navbar-brand" href="login.html">Sair</a>
         </div>
     </nav>
 
@@ -45,31 +45,32 @@
         <div class="container">
             <div class="row">
                 <form id="formulario" onsubmit="" method="post" class="form-horizontal"> <!--Ação em py para inserir no banco. A Ação deve salvar os dados do cliente e retorna oCliente (pode ser usado como numero da conta) objeto em array, e apartir disso, redireciona para a area do cliente. -->
-                    <div class="col-lg-12 col-md-12">
+                    <div class="col-md-12">
                         <fieldset>
-                            <legend style="margin-left: 15px">Abra um chamado com a gente</legend>
+                            <legend style="margin-left: 15px">Entre em contato com a gente. </legend>
                             <div class="row">
-                                <div class="col-lg-12 col-md-12">
+                                <div class="col-lg-12">
                                     <div class="panel panel-default">
                                         <div class="panel-body">
 
                                             <div class="row">
-                                                <div class="col-lg-12">
+                                                <div class="col-lg-4">
                                                     <div class="form-group">
-                                                        <div class="col-lg-12">
+                                                        <div class="col-md-12">
                                                             <label for="assunto" class="control-label"> Assunto </label>
-                                                            <input name="assunto" id="assunto" class="form-control" required="" placeholder="Insira o assunto do seu contato."></input>
+                                                            <input name="assunto" id="assunto" class="form-control" required="">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-lg-12">
+                                                <div class="col-lg-4">
                                                     <div class="form-group">
-                                                        <div class="col-lg-12">
+                                                        <div class="col-md-12">
                                                             <label for="mensagem" class="control-label"> Mensagem </label>
-                                                            <textarea name="mensagem" id="mensagem" rows="10" cols="30" class="form-control"></textarea>
+                                                            <textarea name="mensagem" id="mensagem" class="form-control" placeholder="Insira a sua mensagem." cols="30" rows="10"
+                                                            ></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -80,8 +81,8 @@
 
                                 <div class="pull-right" style="margin-right: 15px; margin-bottom: 15px;">
                                     <div class="btn-group">
-                                        <button type="submit" class="btn btn-primary" id="bt-enviar">Enviar</button> <!--Acao salva os dados do cliente e retorna oCliente (pode ser usado como numero da conta) objeto em array, pra area do cliente -->
-                                        <button href="areaCliente.html" type="button" class="btn btn-default" id="bt-fechar">Cancelar</button> <!--Ir para a página de login -->
+                                        <button type="submit" class="btn btn-primary" id="bt-salvar">Enviar</button> 
+                                        <button href="index.html" type="button" class="btn btn-default" id="bt-fechar">Cancelar</button> <!--Ir para a página de login -->
                                     </div>
                                 </div>
                             </div>
@@ -94,4 +95,185 @@
     </div>
 </div>
 </body>
+<script>
+    jQuery(function () {
+
+        var urlBase = "phiopolis";
+
+        ajaxPost(url, data, callback) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'JSON',
+                data: data,
+                success: callback
+            });
+        }
+
+        ajaxGet(url, callback) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                async: false,
+                success: callback
+            });
+        }
+
+        ajaxForm(callback) {
+            $("#formulario").ajaxSubmit({ //Função do jqueryforms
+                async: false,
+                success: callback
+            });
+        }
+
+
+        salvar(){
+            Utils.ajaxForm((response) => {
+                console.log(response);
+                if (response.retorno === 'erro') {
+                    alert(response.msg);
+                } else {
+                    alert(response.msg);
+                    window.location = BASE_URL + 'areaCliente' + response.id;
+                }
+            }
+            )
+        }
+
+
+
+        $.ajax({
+            url: BASE_URL + '/dav/cadastro/editar-adolescentes-ajax',
+            data: $("#formulario").serialize() + '&tag=false',
+            type: 'post',
+            success: function (json) {
+                $('#formulario').find('#salvar').attr('disabled', false).html('Salvar');
+                if (json.retorno === 'erro') {
+                    alert(json.msg);
+                } else if (json.retorno === 'alerta') {
+                    var confirma = confirm(json.msg);
+                    if (confirma) {
+                        $.ajax({
+                            url: BASE_URL + '/dav/cadastro/editar-adolescentes-ajax',
+                            data: $("#formulario").serialize() + '&tag=true',
+                            type: 'post',
+                            success: function (json) {
+                                $('#formulario').find('#salvar').attr('disabled', false).html('Salvar');
+                                if (json.retorno === 'erro') {
+                                    alert(json.msg);
+                                } else {
+                                    alert(json.msg);
+                                    window.location = BASE_URL + "/dav/cadastro/adolescentes";
+                                }
+                            }
+                        })
+                    }
+                } else {
+                    alert(json.msg);
+                    window.location = BASE_URL + "/dav/cadastro/adolescentes";
+                }
+            }
+        });
+
+
+        return false;
+
+        );
+
+
+    pegarObjeto() {
+
+    }
+
+        function filtrarListagem(select, // nome da lista a ser filtrada
+                                 url, // url do recurso
+                                 fk, // parametro de pesquisa
+                                 id) { // id do item que deve ser selecionado - opcional
+
+            var option = '<option value="">SELECIONE</option>';
+
+
+            
+
+        });
+
+
+    //Objeto que controla as ações do formulário
+    var Acao = {
+        carregarGrid: function () {
+            var params = {
+                oColums: ["id", "nome", "sexo", "mae", "pai"],
+                url: BASE_URL + "/dav/cadastro/grid-adolescentes"
+            };
+            Grid.load(params);
+        },
+        recarregarGrid: function () {
+            Grid.reloadGrid();
+        },
+        limpaModal: function () {
+            $('#id').val('');
+            $('#nome').val('');
+        },
+        /**
+         * @param {type} url
+         * @param {type} acao Array('I' => 'Inclusão', 'A' => 'Alteração', 'E' => 'Exclusão']
+         * @param {type} hideMessage campo boleano não obrigatório. Informe "true" quando
+         * não quiser que o alert padrão do ajax seja acionado.
+         * @returns {json}
+         */
+         execAjax: function (url, acao, hideMessage) {
+            var escondeMensagem = (hideMessage) ? true : false;
+            var retorno;
+
+            //Verifica se a ação é de Alteração ou Exclusão
+            if (acao == 'A' || acao == 'E') {
+
+                //Verifica se há alguma linha selecionada no grid
+                if (!Grid.isRowSelected()) {
+                    return false;
+                }
+            }
+
+            //Verifica se a ação é de Exclusão
+            if (acao == 'E') {
+                var confirma = confirm('Deseja realmente remover o registro:\n' + rowData.nome + ' ?');
+
+                //Verifica a confirmação do usuário
+                if (confirma) {
+                    if (rowData.id == 1) {
+                        alert('O registro ' + rowData.nome + '  não pode ser excluído!');
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+
+            //Executa o ajax
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                async: false,
+                success: function (json) {
+                    retorno = json;
+
+                    if (!escondeMensagem) {
+                        alert(json.msg);
+                        if (!json.erro) {
+                            window.location.reload(true);
+                            //Acao.recarregarGrid();
+                            //Acao.limpaModal();
+                        }
+                    }
+                }
+            });
+
+            return retorno;
+        }
+    };
+
+
+
+</script>
 </html>

@@ -1,65 +1,197 @@
  <!DOCTYPE html>
  <html lang="en">
  <head>
-    <title>Controle de Acesso - PHIOPOLIS</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Scripts Auxiliares. -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+     <title>Controle de Acesso - PHIOPOLIS</title>
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        html, body { height: 100%; }
-        #wrap { min-height: 100%; height: auto; margin: 0 auto -60px; padding: 10px 0 60px; text-align: center; }
-        #wrap .box { margin: 0 auto; padding: 35px 0 30px; float: none; width: 400px; border-radius: 5px; background-color: #F7F7F7; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3); }
-        #wrap .box .content-wrap { width: 82%; margin: 0 auto; }
-        #wrap .box h6 { margin: 0 0 30px 0; font-size: 18px; font-weight: 600; }
-        #wrap .box input[type="text"], #wrap .box input[type="password"] { font-size: 15px; height: 40px; margin-bottom: 18px; border-color: #b2bfc7; padding-left: 12px; }
-        #wrap .box input[type="password"] { margin-bottom: 10px; }
-        #wrap .box input:-moz-placeholder { color: #9ba8b6; font-size: 15px; letter-spacing: 0px; font-style: italic; }
-        #wrap .box input:-ms-input-placeholder { color: #9ba8b6; font-style: italic; letter-spacing: 0px; font-size: 15px; }
-        #wrap .box input::-webkit-input-placeholder { color: #9ba8b6; font-style: italic; letter-spacing: 0px; font-size: 15px; }
-        #wrap span { text-align: left; display: block; }
-        .container { width: auto; max-width: 680px; padding: 0 15px; }
-        .banner{ margin-bottom: 45px; }
-        .banner h1 { font-size: 38px; margin-bottom: 15px; }
-        .banner h1 { color: #555555; font-family: arial; font-size: 42px; font-weight: 300; margin-bottom: 20px; margin-top: 0; }
-        h1 { color: #262626; font-size: 20px; font-weight: normal; margin: 0 0 15px; }
-        .profile-img { border-radius: 50%; display: block; height: 96px; margin: 0 auto 10px; width: 96px; }
-        @media (max-width: 767px) { #wrap .box { width: 350px; } #wrap { padding: 0px; } }
-        @media (max-width: 480px) { #wrap .box { width: 90%; } #wrap { padding: 0px; } }
-        .input { position: relative; }
-        input { border: 1px solid #ccc; padding: 15px; outline: none; font-size: 16px; height: 20px; color: #777; margin: 0; width: 250px; max-width: 100%; display: block; background: #fff; }
-    </style>        
-</head>
-<body>
-    <div id="wrap">
-        <div class="container">
-            <div class="banner">
-                <br>
-                <br>
-                <h1>PHIOPOLIS</h1>
-            </div>
-            <div class="box">
-                <form id="form" class="form-signin" action="" method="post"> <!--COLOCAR O URL DA ACAO DO CONTROLADOR EM PYTHON QUE COMPARA O QUE RECEBE DESSE FORM E REDIRECIONA PRA CLIENTE.HTML OU ADMIN.HTML!-->
-                    <div class="content-wrap">
-                        <img class="profile-img" alt="" src="images/male2.png">
-                        <span>Usuário</span>
-                        <input type="text" class="form-control" placeholder="Seu usuário" name="usuario" value=""> <!--PEGAR VALOR-->
-                        <span>Senha</span>
-                        <div class="input">
-                            <input type="password" class="form-control" placeholder="Sua senha" value="" id="password"><br> <!--PEGAR VALOR-->
-                            <br>
-                        </div>
-                        <button class="btn btn-primary btn-block" type="submit">Login</button><br>
-                        <span><a style="margin-left:15px" href="cadastro.html">Ainda não possui cadastro? Clique aqui</a></span>
-                    </div>
-                    <input type="hidden" name="senha" id="senha">
-                </form>
-            </div>
-        </div>
-    </div>
-</body>
+     <!-- Scripts Auxiliares. -->
+     <link href="css/bootstrap.min.css" rel="stylesheet">
+     <script src="js/jquery.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+
+     <style>
+         html, body { height: 100%; }
+         #wrap { min-height: 100%; height: auto; margin: 0 auto -60px; padding: 10px 0 60px; text-align: center; }
+         #wrap .box { margin: 0 auto; padding: 35px 0 30px; float: none; width: 400px; border-radius: 5px; background-color: #F7F7F7; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3); }
+         #wrap .box .content-wrap { width: 82%; margin: 0 auto; }
+         #wrap .box h6 { margin: 0 0 30px 0; font-size: 18px; font-weight: 600; }
+         #wrap .box input[type="text"], #wrap .box input[type="password"] { font-size: 15px; height: 40px; margin-bottom: 18px; border-color: #b2bfc7; padding-left: 12px; }
+         #wrap .box input[type="password"] { margin-bottom: 10px; }
+         #wrap .box input:-moz-placeholder { color: #9ba8b6; font-size: 15px; letter-spacing: 0px; font-style: italic; }
+         #wrap .box input:-ms-input-placeholder { color: #9ba8b6; font-style: italic; letter-spacing: 0px; font-size: 15px; }
+         #wrap .box input::-webkit-input-placeholder { color: #9ba8b6; font-style: italic; letter-spacing: 0px; font-size: 15px; }
+         #wrap span { text-align: left; display: block; }
+         .container { width: auto; max-width: 680px; padding: 0 15px; }
+         .banner{ margin-bottom: 45px; }
+         .banner h1 { font-size: 38px; margin-bottom: 15px; }
+         .banner h1 { color: #555555; font-family: arial; font-size: 42px; font-weight: 300; margin-bottom: 20px; margin-top: 0; }
+         h1 { color: #262626; font-size: 20px; font-weight: normal; margin: 0 0 15px; }
+         .profile-img { border-radius: 50%; display: block; height: 96px; margin: 0 auto 10px; width: 96px; }
+         @media (max-width: 767px) { #wrap .box { width: 350px; } #wrap { padding: 0px; } }
+         @media (max-width: 480px) { #wrap .box { width: 90%; } #wrap { padding: 0px; } }
+         .input { position: relative; }
+         input { border: 1px solid #ccc; padding: 15px; outline: none; font-size: 16px; height: 20px; color: #777; margin: 0; width: 250px; max-width: 100%; display: block; background: #fff; }
+     </style>        
+ </head>
+ <body>
+     <div id="wrap">
+         <div class="container">
+             <div class="banner">
+                 <br>
+                 <br>
+                 <h1>PHIOPOLIS</h1>
+             </div>
+             <div class="box">
+                 <form id="formulario" class="form-signin" action="" method="post"> <!--COLOCAR O URL DA ACAO DO CONTROLADOR EM PYTHON QUE COMPARA O QUE RECEBE DESSE FORM E REDIRECIONA PRA CLIENTE.HTML OU ADMIN.HTML!-->
+                     <div class="content-wrap">
+                         <img class="profile-img" alt="" src="images/male2.png">
+                         <span>Usuário</span>
+                         <input type="text" class="form-control" placeholder="Seu usuário" name="usuario" value=""> <!--PEGAR VALOR-->
+                         <span>Senha</span>
+                         <div class="input">
+                             <input type="password" class="form-control" placeholder="Sua senha" value="" id="password"><br> <!--PEGAR VALOR-->
+                             <br>
+                         </div>
+                         <button class="btn btn-primary btn-block" type="submit">Login</button><br>
+                         <span><a style="margin-left:15px" href="cadastro.html">Ainda não possui cadastro? Clique aqui</a></span>
+                     </div>
+                     <input type="hidden" name="senha" id="senha">
+                 </form>
+             </div>
+         </div>
+     </div>
+ </body>
+ <script> 
+
+ //CONSTRUINDO OS AJAX DA GALERA;
+     var oColums = null;
+     var oTable = null;
+     var rowData = [];
+     var Grid = {
+
+    /*load: function (params) {
+        oTable = $('#grid').dataTable({
+            lengthChange: false,
+            bFilter: false,
+            bSort: false,
+            bProcessing: true,
+            bServerSide: true,
+            sAjaxSource: params.url,
+            oLanguage: {sUrl: BASE_URL + "/js/datatables/datatables.portugues.txt"},
+            aoColumns: Grid.setColums(params),
+            fnServerData: function (sSource, aoData, fnCallback) {
+                Grid.ajaxExecute(sSource, aoData, fnCallback);
+            }
+        });
+
+        Grid.selectRow();
+    },
+
+    setColums: function (params) {
+        var aColunas = [];
+        $.each(params.oColums, function (i, coluna) {
+            aColunas.push('{data: "' + coluna + '"}');
+        });
+
+        var colunas = aColunas.join();
+        return eval("[" + colunas + "]");
+    },
+
+    ajaxExecute: function (sSource, aoData, fnCallback) {
+        $.each($('#form-pesquisa').serializeArray(), function (index, value) {
+            aoData.push({name: value.name, value: value.value});
+        });
+
+        $.ajax({
+            url: sSource,
+            data: aoData,
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            success: function (json) {
+                if (json.erro) {
+                    $("#mensagem").html(json.msg).show().delay(5000).fadeOut("slow");
+                } else {
+                    fnCallback(json);
+                }
+            }
+        });
+    },
+
+
+    reloadGrid: function () {
+        oTable.fnDraw();
+        Grid.desabilitaAcoes();
+    },
+
+
+    totalRegistros: function () {
+        return oTable.fnGetData().length;
+    },
+
+    */
+};
+
+
+    /*ajaxPost(url, data, callback) {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'JSON',
+            data: data,
+            success: callback
+        });
+    }
+
+    ajaxGet(url, callback) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'JSON',
+            async: false,
+            success: callback
+        });
+    }
+
+    ajaxForm(callback) {
+        $("#formulario").ajaxSubmit({ //Função do jqueryforms
+            async: false,
+            success: callback
+        });
+    }
+
+    var urlBase = "phiopolis";
+
+    carregarGrid(){ //admin
+        var params = {
+            oColums: ["id", "assunto", "dt_criacao", "status"],
+            url: BASE_URL + "acao"
+        };
+        Grid.load(params);
+    }
+
+        carregarGrid(){ //cliente
+        var params = {
+            oColums: ["id", "assunto", "dt_criacao", "status"],
+            url: BASE_URL + "acao"
+        };
+        Grid.load(params);
+    }
+
+    salvar(){
+        Utils.ajaxForm((response) => {
+            console.log(response);
+            if (response.retorno === 'erro') {
+                alert(response.msg);
+            } else {
+                alert(response.msg);
+                window.location = urlBase + 'areaCliente' + response.id;
+            }
+        }
+        )
+    }
+*/
+
+</script>
 </html>
