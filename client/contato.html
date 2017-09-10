@@ -96,184 +96,134 @@
 </div>
 </body>
 <script>
-    jQuery(function () {
+ //CONSTRUINDO OS AJAX DA GALERA;
+     var oColums = null;
+     var oTable = null;
+     var rowData = [];
+     var Grid = {
 
-        var urlBase = "phiopolis";
-
-        ajaxPost(url, data, callback) {
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType: 'JSON',
-                data: data,
-                success: callback
-            });
-        }
-
-        ajaxGet(url, callback) {
-            $.ajax({
-                url: url,
-                type: 'GET',
-                dataType: 'JSON',
-                async: false,
-                success: callback
-            });
-        }
-
-        ajaxForm(callback) {
-            $("#formulario").ajaxSubmit({ //Função do jqueryforms
-                async: false,
-                success: callback
-            });
-        }
-
-
-        salvar(){
-            Utils.ajaxForm((response) => {
-                console.log(response);
-                if (response.retorno === 'erro') {
-                    alert(response.msg);
-                } else {
-                    alert(response.msg);
-                    window.location = BASE_URL + 'areaCliente' + response.id;
-                }
+    /*load: function (params) {
+        oTable = $('#grid').dataTable({
+            lengthChange: false,
+            bFilter: false,
+            bSort: false,
+            bProcessing: true,
+            bServerSide: true,
+            sAjaxSource: params.url,
+            oLanguage: {sUrl: BASE_URL + "/js/datatables/datatables.portugues.txt"},
+            aoColumns: Grid.setColums(params),
+            fnServerData: function (sSource, aoData, fnCallback) {
+                Grid.ajaxExecute(sSource, aoData, fnCallback);
             }
-            )
-        }
+        });
 
+        Grid.selectRow();
+    },
 
+    setColums: function (params) {
+        var aColunas = [];
+        $.each(params.oColums, function (i, coluna) {
+            aColunas.push('{data: "' + coluna + '"}');
+        });
+
+        var colunas = aColunas.join();
+        return eval("[" + colunas + "]");
+    },
+
+    ajaxExecute: function (sSource, aoData, fnCallback) {
+        $.each($('#form-pesquisa').serializeArray(), function (index, value) {
+            aoData.push({name: value.name, value: value.value});
+        });
 
         $.ajax({
-            url: BASE_URL + '/dav/cadastro/editar-adolescentes-ajax',
-            data: $("#formulario").serialize() + '&tag=false',
+            url: sSource,
+            data: aoData,
             type: 'post',
+            dataType: 'json',
+            async: false,
             success: function (json) {
-                $('#formulario').find('#salvar').attr('disabled', false).html('Salvar');
-                if (json.retorno === 'erro') {
-                    alert(json.msg);
-                } else if (json.retorno === 'alerta') {
-                    var confirma = confirm(json.msg);
-                    if (confirma) {
-                        $.ajax({
-                            url: BASE_URL + '/dav/cadastro/editar-adolescentes-ajax',
-                            data: $("#formulario").serialize() + '&tag=true',
-                            type: 'post',
-                            success: function (json) {
-                                $('#formulario').find('#salvar').attr('disabled', false).html('Salvar');
-                                if (json.retorno === 'erro') {
-                                    alert(json.msg);
-                                } else {
-                                    alert(json.msg);
-                                    window.location = BASE_URL + "/dav/cadastro/adolescentes";
-                                }
-                            }
-                        })
-                    }
+                if (json.erro) {
+                    $("#mensagem").html(json.msg).show().delay(5000).fadeOut("slow");
                 } else {
-                    alert(json.msg);
-                    window.location = BASE_URL + "/dav/cadastro/adolescentes";
+                    fnCallback(json);
                 }
             }
         });
+    },
 
 
-        return false;
+    reloadGrid: function () {
+        oTable.fnDraw();
+        Grid.desabilitaAcoes();
+    },
 
-        );
+
+    totalRegistros: function () {
+        return oTable.fnGetData().length;
+    },
+
+    */
+};
 
 
-    pegarObjeto() {
-
+    /*ajaxPost(url, data, callback) {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'JSON',
+            data: data,
+            success: callback
+        });
     }
 
-        function filtrarListagem(select, // nome da lista a ser filtrada
-                                 url, // url do recurso
-                                 fk, // parametro de pesquisa
-                                 id) { // id do item que deve ser selecionado - opcional
-
-            var option = '<option value="">SELECIONE</option>';
-
-
-            
-
+    ajaxGet(url, callback) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'JSON',
+            async: false,
+            success: callback
         });
+    }
 
+    ajaxForm(callback) {
+        $("#formulario").ajaxSubmit({ //Função do jqueryforms
+            async: false,
+            success: callback
+        });
+    }
 
-    //Objeto que controla as ações do formulário
-    var Acao = {
-        carregarGrid: function () {
-            var params = {
-                oColums: ["id", "nome", "sexo", "mae", "pai"],
-                url: BASE_URL + "/dav/cadastro/grid-adolescentes"
-            };
-            Grid.load(params);
-        },
-        recarregarGrid: function () {
-            Grid.reloadGrid();
-        },
-        limpaModal: function () {
-            $('#id').val('');
-            $('#nome').val('');
-        },
-        /**
-         * @param {type} url
-         * @param {type} acao Array('I' => 'Inclusão', 'A' => 'Alteração', 'E' => 'Exclusão']
-         * @param {type} hideMessage campo boleano não obrigatório. Informe "true" quando
-         * não quiser que o alert padrão do ajax seja acionado.
-         * @returns {json}
-         */
-         execAjax: function (url, acao, hideMessage) {
-            var escondeMensagem = (hideMessage) ? true : false;
-            var retorno;
+    var urlBase = "phiopolis";
 
-            //Verifica se a ação é de Alteração ou Exclusão
-            if (acao == 'A' || acao == 'E') {
+    carregarGrid(){ //admin
+        var params = {
+            oColums: ["id", "assunto", "dt_criacao", "status"],
+            url: BASE_URL + "acao"
+        };
+        Grid.load(params);
+    }
 
-                //Verifica se há alguma linha selecionada no grid
-                if (!Grid.isRowSelected()) {
-                    return false;
-                }
+        carregarGrid(){ //cliente
+        var params = {
+            oColums: ["id", "assunto", "dt_criacao", "status"],
+            url: BASE_URL + "acao"
+        };
+        Grid.load(params);
+    }
+
+    salvar(){
+        Utils.ajaxForm((response) => {
+            console.log(response);
+            if (response.retorno === 'erro') {
+                alert(response.msg);
+            } else {
+                alert(response.msg);
+                window.location = urlBase + 'areaCliente' + response.id;
             }
-
-            //Verifica se a ação é de Exclusão
-            if (acao == 'E') {
-                var confirma = confirm('Deseja realmente remover o registro:\n' + rowData.nome + ' ?');
-
-                //Verifica a confirmação do usuário
-                if (confirma) {
-                    if (rowData.id == 1) {
-                        alert('O registro ' + rowData.nome + '  não pode ser excluído!');
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            }
-
-            //Executa o ajax
-            $.ajax({
-                url: url,
-                dataType: 'json',
-                async: false,
-                success: function (json) {
-                    retorno = json;
-
-                    if (!escondeMensagem) {
-                        alert(json.msg);
-                        if (!json.erro) {
-                            window.location.reload(true);
-                            //Acao.recarregarGrid();
-                            //Acao.limpaModal();
-                        }
-                    }
-                }
-            });
-
-            return retorno;
         }
-    };
-
-
+        )
+    }
+*/
 
 </script>
 </html>
