@@ -6,7 +6,8 @@ CREATE TABLE `usuario` (
  `endereco` VARCHAR(100) NOT NULL,
  `email` VARCHAR(20) NOT NULL,
  `telefone` CHAR(11) NOT NULL,
- `senha` CHAR(64)
+ `senha` CHAR(64) NOT NULL,
+ `admin` BOOLEAN NOT NULL
 );
 
 
@@ -57,6 +58,7 @@ CREATE TABLE `contato` (
 
  FOREIGN KEY (`conta`,`id_usuario`) REFERENCES `cliente` (`conta`,`id_usuario`)
 );
+
 
 CREATE TABLE `fatura` (
  `id_fatura` INT NOT NULL PRIMARY KEY,
@@ -115,8 +117,8 @@ CREATE TABLE `mensagem` (
  `id_resposta` INT NOT NULL,
  `id_admin` INT NOT NULL,
  `assunto` CHAR(20) NOT NULL,
- `conteudo` TEXT(1000) NOT NULL,
- `resposta` TEXT(1000) NOT NULL,
+ `conteudo` CHAR(1000) NOT NULL,
+ `resposta` CHAR(1000) NOT NULL,
  `status` CHAR(20) NOT NULL,
  `data_criacao` DATE NOT NULL,
 
