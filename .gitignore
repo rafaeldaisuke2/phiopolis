@@ -1,3 +1,4 @@
 **/*.lock
 **/*.bak
-
+db/db_data
+db/schemas.d

@@ -1,11 +1,12 @@
 CREATE TABLE `usuario` (
  `id_usuario` VARCHAR(10) NOT NULL PRIMARY KEY,
- `nome` VARCHAR(50),
- `cpf` CHAR(11),
- `rg` VARCHAR(10),
- `endereco` VARCHAR(100),
- `email` VARCHAR(20),
- `telefone` CHAR(11)
+ `nome` VARCHAR(50) NOT NULL,
+ `cpf` CHAR(11) NOT NULL,
+ `rg` VARCHAR(10) NOT NULL,
+ `endereco` VARCHAR(100) NOT NULL,
+ `email` VARCHAR(20) NOT NULL,
+ `telefone` CHAR(11) NOT NULL,
+ `senha` CHAR(64)
 );
 
 
@@ -24,7 +25,7 @@ CREATE TABLE `cliente` (
  `id_usuario` VARCHAR(10) NOT NULL,
  `status` BOOLEAN NOT NULL,
  `sensor` INT NOT NULL,
- `cota` INT,
+ `cota` INT NOT NULL,
 
  PRIMARY KEY (`conta`,`id_usuario`),
 
@@ -36,9 +37,9 @@ CREATE TABLE `consumo` (
  `id_consumo` INT NOT NULL,
  `conta` INT NOT NULL,
  `id_usuario` VARCHAR(10) NOT NULL,
- `mes` CHAR(3),
- `ano` INT,
- `valor` FLOAT(10),
+ `mes` CHAR(3) NOT NULL,
+ `ano` INT NOT NULL,
+ `valor` FLOAT(10) NOT NULL,
 
  PRIMARY KEY (`id_consumo`,`conta`,`id_usuario`),
 
@@ -50,23 +51,17 @@ CREATE TABLE `contato` (
  `id_contato` INT NOT NULL,
  `conta` INT NOT NULL,
  `id_usuario` VARCHAR(10) NOT NULL,
- `data` DATE,
+ `data` DATE NOT NULL,
 
  PRIMARY KEY (`id_contato`,`conta`,`id_usuario`),
 
  FOREIGN KEY (`conta`,`id_usuario`) REFERENCES `cliente` (`conta`,`id_usuario`)
 );
 
-
 CREATE TABLE `fatura` (
- `conta` INT NOT NULL,
- `id_fatura` VARCHAR(10) NOT NULL,
- `valor` FLOAT(10),
- `vencimento` DATE,
-
- PRIMARY KEY (`conta`,`id_fatura`),
-
- FOREIGN KEY (`conta`,`id_fatura`) REFERENCES `cliente` (`conta`,`id_usuario`)
+ `id_fatura` INT NOT NULL PRIMARY KEY,
+ `valor` FLOAT(10) NOT NULL,
+ `vencimento` DATE NOT NULL
 );
 
 
@@ -74,12 +69,13 @@ CREATE TABLE `pagamento` (
  `id_pagamento` INT NOT NULL,
  `conta` INT NOT NULL,
  `id_usuario` VARCHAR(10) NOT NULL,
- `data` DATE,
+ `id_fatura` INT NOT NULL,
+ `data` DATE NOT NULL,
 
- PRIMARY KEY (`id_pagamento`,`conta`,`id_usuario`),
+ PRIMARY KEY (`id_pagamento`,`conta`,`id_usuario`,`id_fatura`),
 
  FOREIGN KEY (`conta`,`id_usuario`) REFERENCES `cliente` (`conta`,`id_usuario`),
- FOREIGN KEY (`conta`,`id_usuario`) REFERENCES `fatura` (`conta`,`id_fatura`)
+ FOREIGN KEY (`id_fatura`) REFERENCES `fatura` (`id_fatura`)
 );
 
 
@@ -88,13 +84,14 @@ CREATE TABLE `recibo` (
  `conta` INT NOT NULL,
  `id_usuario` VARCHAR(10) NOT NULL,
  `id_pagamento` INT NOT NULL,
- `data_pagamento` DATE,
- `valor` FLOAT(10),
+ `id_fatura` INT NOT NULL,
+ `data_pagamento` DATE NOT NULL,
+ `valor` FLOAT(10) NOT NULL,
 
- PRIMARY KEY (`id_recibo`,`conta`,`id_usuario`,`id_pagamento`),
+ PRIMARY KEY (`id_recibo`,`conta`,`id_usuario`,`id_pagamento`,`id_fatura`),
 
  FOREIGN KEY (`conta`,`id_usuario`) REFERENCES `cliente` (`conta`,`id_usuario`),
- FOREIGN KEY (`id_pagamento`,`conta`,`id_usuario`,`conta`,`id_usuario`) REFERENCES `pagamento` (`id_pagamento`,`conta`,`id_usuario`,`conta_0`,`id_0_0`)
+ FOREIGN KEY (`id_pagamento`,`conta`,`id_usuario`,`id_fatura`) REFERENCES `pagamento` (`id_pagamento`,`conta`,`id_usuario`,`id_fatura`)
 );
 
 
@@ -102,7 +99,7 @@ CREATE TABLE `resposta` (
  `id_resposta` INT NOT NULL,
  `id_admin` INT NOT NULL,
  `id_usuario` VARCHAR(10) NOT NULL,
- `data` DATE,
+ `data` DATE NOT NULL,
 
  PRIMARY KEY (`id_resposta`,`id_admin`,`id_usuario`),
 
@@ -117,11 +114,11 @@ CREATE TABLE `mensagem` (
  `id_usuario` VARCHAR(10) NOT NULL,
  `id_resposta` INT NOT NULL,
  `id_admin` INT NOT NULL,
- `assunto` CHAR(20),
- `conteudo` CHAR(1000),
- `resposta` CHAR(1000),
- `status` CHAR(20),
- `data_criacao` DATE,
+ `assunto` CHAR(20) NOT NULL,
+ `conteudo` TEXT(1000) NOT NULL,
+ `resposta` TEXT(1000) NOT NULL,
+ `status` CHAR(20) NOT NULL,
+ `data_criacao` DATE NOT NULL,
 
  PRIMARY KEY (`id_mensagem`,`id_contato`,`conta`,`id_usuario`,`id_resposta`,`id_admin`),
 
